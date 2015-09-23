@@ -1,0 +1,23 @@
+{
+  "name": "angular-spies",
+  "version": "1.0.0",
+  "homepage": "https://github.com/hirezio/angular-spies",
+  "authors": [
+    "shairez <shai@hirez.io>"
+  ],
+  "description": "Spies for writing Angular TDD Faster",
+  "keywords": [
+    "angular",
+    "tests",
+    "spies",
+    "mocks"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
