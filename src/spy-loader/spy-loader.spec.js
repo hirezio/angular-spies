@@ -1,6 +1,6 @@
 import spySuffix from '../spy-suffix';
 
-describe('spy-loader', ()=>{
+describe('spy-loader', () => {
 
   var spyName,
     spyInjections,
@@ -21,21 +21,21 @@ describe('spy-loader', ()=>{
   });
 
   describe('when called with an empty array', () => {
-    Given( () => spyInjections = [] );
+    Given(() => spyInjections = [] );
     Then(() => {
       expect(() => injectSpy(spyInjections)).toThrow();
     });
   });
 
   describe('when called with a wrong array', () => {
-    Given( () => spyInjections = ['test', 1, function(){}] );
+    Given(() => spyInjections = ['test', 1, function(){}] );
     Then(() => {
       expect(() => injectSpy(spyInjections)).toThrow();
     });
   });
 
   describe('when called with a single function array', () => {
-    Given( () => spyInjections = [function(){}] );
+    Given(() => spyInjections = [function(){}] );
     Then(() => {
       expect(() => injectSpy(spyInjections)).toThrow();
     });

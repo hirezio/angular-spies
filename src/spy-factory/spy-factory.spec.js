@@ -1,61 +1,61 @@
-describe('spy-factory', function () {
+describe('spy-factory', () => {
 
   var serviceName,
     returnedService,
     $rootScope,
     spy;
 
-  Given(function(){
+  Given(() => {
     serviceName = 'myService';
   });
 
-  describe('an empty spy', function () {
+  describe('an empty spy', () => {
 
-    Given(()=>{
+    Given(() => {
       spy = angular.spyOnService(serviceName);
     });
 
-    When(injectSpy( function(myService){
+    When(injectSpy( (myService) => {
       returnedService = myService;
     }));
 
-    Then(function(){
+    Then(() => {
       expect(returnedService).toEqual({});
     });
 
-    describe('spy with method names as parameters', function () {
-      Given(()=>{
+    describe('spy with method names as parameters', () => {
+      Given(() => {
         spy.methods('doSomething');
       });
-      Then(function(){
+      Then(() => {
         expect(spy.methodNames).toEqual(['doSomething']);
       });
     });
 
-    describe('spy with method names as an array', function () {
-      Given(()=>{
+    describe('spy with method names as an array', () => {
+      Given(() => {
         spy.methods(['doSomething']);
       });
 
-      When(injectSpy( function(myService){
+      When(injectSpy( (myService) => {
         returnedService = myService;
         myService.doSomething();
       }));
 
-      Then(function(){
+      Then(() => {
         expect(returnedService.doSomething).toHaveBeenCalled();
       });
 
-      describe('spy with async method names as parameters', function () {
-        Given(()=>{
+      describe('spy with async method names as parameters', () => {
+        Given(() => {
           spy.asyncMethods('doSomethingAsync');
         });
-        Then(function(){
+        Then(() => {
           expect(spy.asyncMethodNames).toEqual(['doSomethingAsync']);
         });
       });
 
-      describe('spy with asyncMethods', function () {
+      describe('spy with asyncMethods', () => {
         var promiseResponse,
           fakePromiseResponse;
         Given(()=>{
@@ -63,7 +63,7 @@ describe('spy-factory', function () {
           spy.asyncMethods(['doSomethingAsync']);
         });
 
-        When(injectSpy( function(myService){
+        When(injectSpy( (myService) => {
           returnedService = myService;
           returnedService.getDeferred('doSomethingAsync')
             .resolve(fakePromiseResponse);
@@ -73,18 +73,18 @@ describe('spy-factory', function () {
             .then((response)=> promiseResponse = response);
         }));
 
-        When(inject(function(_$rootScope_){
+        When(inject( (_$rootScope_) => {
           $rootScope = _$rootScope_;
           $rootScope.$apply();
         }));
 
-        Then(function(){
+        Then(() => {
           expect(returnedService.doSomethingAsync).toHaveBeenCalled();
           expect(promiseResponse).toBe(fakePromiseResponse);
         });
       });
 
-      describe('extending a spy', function () {
+      describe('extending a spy', () => {
         var childSpy,
           returnedChildSpy;
         Given(() => {
@@ -92,12 +92,12 @@ describe('spy-factory', function () {
                   .spyOnService('childSpy', [serviceName]);
         });
 
-        When(injectSpy( function(childSpy){
+        When(injectSpy( (childSpy) => {
           returnedChildSpy = childSpy;
           returnedChildSpy.doSomething();
         }));
 
-        Then(function(){
+        Then(() => {
           expect(returnedChildSpy.doSomething).toHaveBeenCalled();
         });
       });
