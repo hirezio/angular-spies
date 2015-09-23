@@ -19,11 +19,10 @@ Usually it involves tons of boilerplate code but NO MORE!
 
 ## Installation
 
-`npm install -g angular-spies`
-
+    npm install angular-spies
 or
 
-`bower install angular-spies` 
+    bower install angular-spies
 
 
 ## Usage

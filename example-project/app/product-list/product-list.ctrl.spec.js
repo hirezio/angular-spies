@@ -8,7 +8,7 @@ describe('Product List', function () {
     productServiceSpy = productService;
   }));
 
-  beforeEach( injectSpy(function(_$controller_,
+  beforeEach( inject(function(_$controller_,
                                  _$rootScope_){
     $controller = _$controller_;
     $rootScope = _$rootScope_;
