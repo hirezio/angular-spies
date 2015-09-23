@@ -122,7 +122,9 @@ angular
 
 Now the spy of `productService` will have 5 async methods -  `create`, `read`, `update`, `delete` and `createProductByName` 
 
+## Example Project
 
+See the [Example Project](./example-project/app) to get a quick look on how to test your controllers.
 
 ## License
 
