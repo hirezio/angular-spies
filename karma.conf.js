@@ -14,7 +14,7 @@ preprocessors[specsEntry] = ['webpack'];
 var inCIMode = process.env.CI === 'true';
 
 if (inCIMode){
-  preprocessors['src/**/spy*/*!(spec).js'] = ['coverage'];
+  //preprocessors['src/**/spy*/*!(spec).js'] = ['coverage'];
   browsers.push('Firefox');
 }else{
   browsers.push('Chrome');
@@ -102,7 +102,7 @@ module.exports = function(config) {
 function getReporters() {
   var reps = ['progress'];
   if (inCIMode) {
-    reps.push('coverage');
+    //reps.push('coverage');
   }
   return reps;
 }

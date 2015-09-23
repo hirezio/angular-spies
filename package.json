@@ -34,7 +34,7 @@
       "env": {
         "CI": "true"
       },
-      "command": "karma start"
+      "command": "karma start --log-level debug"
     }
   },
   "repository": {
