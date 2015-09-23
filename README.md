@@ -42,7 +42,7 @@ angular
 
 
 ### Inject a Spy in your test
-
+#### `injectSpy( serviceName ) { }`
 ```js
 
 var productCtrl,
@@ -69,6 +69,8 @@ it ('should get products', function(){
 ```
 
 ### Async Methods (Return Promises)
+#### `.asyncMethods( methodName, ...)`
+
 ```js
 angular
 	.spyOnService('productService')
