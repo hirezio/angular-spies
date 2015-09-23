@@ -9,8 +9,8 @@ Usually it involves tons of boilerplate code but NO MORE!
 
 ## Dependencies
 * Angular 1.x
-* angular-mocks (same version as Angular)
-* Jasmine 2.x and above (spies are jasmine.createSpy)
+* angular-mocks 1.x (same version as Angular)
+* Jasmine 2.x and above (spies are `jasmine.createSpy`)
 
 ## Installation
 
