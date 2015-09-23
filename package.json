@@ -14,31 +14,6 @@
     "publish:latest": "with-package build_scripts/publish-latest.sh pkg.version",
     "semantic-release": "semantic-release pre && npm run build && npm publish && npm run publish:latest && semantic-release post"
   },
-  "betterScripts": {
-    "build:unminified": {
-      "command": "webpack"
-    },
-    "build:minified": {
-      "env": {
-        "MINIFY": "true"
-      },
-      "command": "webpack -p"
-    },
-    "build": [
-      {
-        "run": "build:minified"
-      },
-      {
-        "run": "build:unminified"
-      }
-    ],
-    "test": {
-      "env": {
-        "CI": "true"
-      },
-      "command": "karma start"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hirezio/angular-spies.git"
@@ -62,7 +37,6 @@
     "angular-mocks": "1.4.6",
     "babel-core": "5.8.25",
     "babel-loader": "5.3.2",
-    "better-npm-run": "0.0.2",
     "commitizen": "1.0.4",
     "cz-conventional-changelog": "1.1.0",
     "istanbul": "0.3.20",
