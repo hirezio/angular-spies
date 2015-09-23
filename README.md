@@ -50,9 +50,7 @@ var productCtrl,
 
 beforeEach( injectSpy( function(productService) {
 	
-	// productService.getProducts is actualy a jasmine.createSpy()
 	productServiceSpy = productService; 
-	
 }));
 
 it ('should get products', function(){
@@ -104,7 +102,7 @@ it ('should get products async', function(){
 
 ``` 
 
-### Extending a previous defined spy
+### Extending a Previously Defined Spy
 
 Lets say for example that you have a generic spy for a data library, with all the CRUD methods defined already:
 
