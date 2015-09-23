@@ -23,12 +23,16 @@ or
 
 ## Usage
 
-### Define a Spy
+### Define a Spy 
+#### `angular.spyOnService( serviceName, [ optionalParentSpy, ...])`
 
-To define a spy, just use  `angular.spyOnService()`
-It returns an object with 2 methods you can chain to - `methods` and `asyncMethods`. 
+```js
+angular
+	.spyOnService('productService')
+```
 
-`productService.srv.spy.js`:
+### Defining Methods
+#### `.methods( methodName, ...)`
 
 ```js
 angular
@@ -37,9 +41,7 @@ angular
 ```
 
 
-### Inject a Spy
-
-`productService.srv.spec.js`:
+### Inject a Spy in your test
 
 ```js
 
@@ -67,7 +69,6 @@ it ('should get products', function(){
 ```
 
 ### Async Methods (Return Promises)
-If you want to mark some methods as async, you just add them through the `asyncMethods` call like this:
 ```js
 angular
 	.spyOnService('productService')
@@ -103,7 +104,6 @@ it ('should get products async', function(){
 
 ### Extending a previous defined spy
 
-If you want to extend the functionality of a spy.
 Lets say for example that you have a generic spy for a data library, with all the CRUD methods defined already:
 
 ```js
@@ -112,7 +112,7 @@ angular
 	.asyncMethods('create', 'read', 'update', 'delete')
 ```
 
-You can use the second parameter of the `spyOnService` method to declare its parent spies.
+You can use the second parameter of the `spyOnService` method to declare its parent spies, just add second parameter as an array of spy names you want to extend from (Like `angular.module(moduleName, [depenedencies])`)
  
 ```js
 angular
@@ -120,7 +120,7 @@ angular
 	.asyncMethods('createProductByName')
 ```
 
-Now the spy will have 5 async methods -  `create`, `read`, `update`, `delete` and `createProductByName` 
+Now the spy of `productService` will have 5 async methods -  `create`, `read`, `update`, `delete` and `createProductByName` 
 
  
 
