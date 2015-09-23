@@ -1,20 +1,20 @@
 import spySuffix from '../spy-suffix';
 
-module.exports = window.angular.spyOnService = createServiceSpy;
+module.exports = window.angular.spyOnService = spyOnService;
 
-function createServiceSpy(serviceName, parents) {
+function spyOnService(serviceName, parentSpies) {
 
-  function AngularSpy() {
+  function SpyCreator() {
     var spyCreatorInstance = this;
     this.methodNames = null;
     this.asyncMethodNames = null;
-    createAngularService(spyCreatorInstance, serviceName, parents);
+    createAngularService(spyCreatorInstance, serviceName, parentSpies);
   }
 
-  AngularSpy.prototype.methods = addMethods;
-  AngularSpy.prototype.asyncMethods = addAsyncMethods;
+  SpyCreator.prototype.methods = addMethods;
+  SpyCreator.prototype.asyncMethods = addAsyncMethods;
 
-  return new AngularSpy();
+  return new SpyCreator();
 }
 
 
