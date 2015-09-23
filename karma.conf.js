@@ -10,6 +10,12 @@ var preprocessors = {};
 preprocessors[indexEntry] = ['webpack', 'sourcemap'];
 preprocessors[specsEntry] = ['webpack'];
 
+var coverage = process.env.COVERAGE === 'true';
+
+if (coverage){
+  preprocessors['src/**/spy*/*!(spec).js'] = ['coverage'];
+}
+
 module.exports = function(config) {
   config.set({
 
@@ -47,10 +53,18 @@ module.exports = function(config) {
 
     webpack: webpackConfig,
 
+    coverageReporter: {
+      reporters: [
+        {type: 'lcov', dir: 'coverage/', subdir: '.'},
+        {type: 'json', dir: 'coverage/', subdir: '.'},
+        {type: 'text-summary'}
+      ]
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: getReporters(),
 
 
     // web server port
@@ -79,4 +93,12 @@ module.exports = function(config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   })
+}
+
+function getReporters() {
+  var reps = ['progress'];
+  if (coverage) {
+    reps.push('coverage');
+  }
+  return reps;
 }

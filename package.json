@@ -1,15 +1,40 @@
 {
   "name": "angular-spies",
   "version": "0.0.0-semantically-released",
-  "description": "Spies For Quick Angular TDD",
+  "description": "Spies For Your Angular Tests TDD",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
-    "build:dev": "set MINIFY=false& webpack",
-    "build:prod": "set MINIFY=true& webpack -p",
-    "build": "npm run build:dev & npm run build:prod",
-    "test": "karma start",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "better-npm-run build",
+    "test": "better-npm-run test",
+    "publish:latest": "with-package build_scripts/publish-latest.sh pkg.version",
+    "semantic-release": "semantic-release pre && npm run build && npm publish && npm run publish:latest && semantic-release post"
+  },
+  "betterScripts": {
+    "build:unminified": {
+      "command": "webpack"
+    },
+    "build:minified": {
+      "env": {
+        "MINIFY": "true"
+      },
+      "command": "webpack -p"
+    },
+    "build": [
+      {
+        "run": "build:minified"
+      },
+      {
+        "run": "build:unminified"
+      }
+    ],
+    "test": {
+      "env": {
+        "COVERAGE": "true"
+      },
+      "command": "karma start"
+    }
   },
   "repository": {
     "type": "git",
@@ -18,7 +43,10 @@
   "keywords": [
     "angular",
     "spies",
-    "tests"
+    "mocks",
+    "jasmine",
+    "tests",
+    "TDD"
   ],
   "author": "Shai Reznik (http://www.hirez.io)",
   "license": "MIT",
@@ -28,25 +56,33 @@
   "homepage": "https://github.com/hirezio/angular-spies#readme",
   "devDependencies": {
     "angular": "^1.4.6",
-    "angular-mocks": "^1.4.6",
-    "babel-core": "^5.8.25",
-    "babel-loader": "^5.3.2",
+    "angular-mocks": "1.4.6",
+    "babel-core": "5.8.25",
+    "babel-loader": "5.3.2",
+    "better-npm-run": "0.0.2",
     "commitizen": "1.0.4",
     "cz-conventional-changelog": "commitizen/cz-conventional-changelog#6f66e023da90c535d8c8d91635ba93e9387f8c59",
+    "istanbul": "0.3.20",
     "jasmine-core": "^2.3.4",
     "jasmine-given": "^2.6.3",
-    "karma": "^0.13.10",
-    "karma-babel-preprocessor": "^5.2.2",
-    "karma-chrome-launcher": "^0.2.0",
-    "karma-jasmine": "^0.3.6",
-    "karma-source-map-support": "^1.1.0",
-    "karma-sourcemap-loader": "^0.3.5",
-    "karma-webpack": "^1.7.0",
-    "semantic-release": "^4.3.5",
-    "source-map-support": "^0.3.2",
-    "webpack": "^1.12.2"
+    "karma": "0.13.10",
+    "karma-babel-preprocessor": "5.2.2",
+    "karma-chrome-launcher": "0.2.0",
+    "karma-coverage": "0.5.2",
+    "karma-jasmine": "0.3.6",
+    "karma-source-map-support": "1.1.0",
+    "karma-sourcemap-loader": "0.3.5",
+    "karma-webpack": "1.7.0",
+    "semantic-release": "4.3.5",
+    "source-map-support": "0.3.2",
+    "webpack": "1.12.2"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
   }
 }
