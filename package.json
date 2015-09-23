@@ -53,7 +53,8 @@
     "karma-webpack": "1.7.0",
     "semantic-release": "4.3.5",
     "source-map-support": "0.3.2",
-    "webpack": "1.12.2"
+    "webpack": "1.12.2",
+    "with-package": "0.2.0"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
