@@ -6,7 +6,9 @@
   "scripts": {
     "commit": "git-cz",
     "prebuild": "rm -rf dist && mkdir dist",
-    "build": "better-npm-run build",
+    "build:unminified": "webpack",
+    "build:minified": "MINIFY=true webpack -p",
+    "build": "npm run build:unminified && npm run build:minified",
     "test": "CI=true karma start",
     "test:local": "karma start",
     "publish:latest": "with-package build_scripts/publish-latest.sh pkg.version",
