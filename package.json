@@ -8,6 +8,7 @@
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "better-npm-run build",
     "test": "better-npm-run test",
+    "test:local": "karma start",
     "publish:latest": "with-package build_scripts/publish-latest.sh pkg.version",
     "semantic-release": "semantic-release pre && npm run build && npm publish && npm run publish:latest && semantic-release post"
   },
@@ -31,7 +32,7 @@
     ],
     "test": {
       "env": {
-        "COVERAGE": "true"
+        "CI": "true"
       },
       "command": "karma start"
     }
@@ -82,7 +83,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test:local"
     }
   }
 }

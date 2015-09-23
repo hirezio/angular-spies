@@ -6,14 +6,18 @@ var specsEntry = 'src/**/*.spec.js';
 
 webpackConfig.entry = './'+indexEntry;
 
+var browsers = [];
 var preprocessors = {};
 preprocessors[indexEntry] = ['webpack', 'sourcemap'];
 preprocessors[specsEntry] = ['webpack'];
 
-var coverage = process.env.COVERAGE === 'true';
+var inCIMode = process.env.CI === 'true';
 
-if (coverage){
+if (inCIMode){
   preprocessors['src/**/spy*/*!(spec).js'] = ['coverage'];
+  browsers.push('Firefox');
+}else{
+  browsers.push('Chrome');
 }
 
 module.exports = function(config) {
@@ -86,7 +90,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: browsers,
 
 
     // Continuous Integration mode
@@ -97,7 +101,7 @@ module.exports = function(config) {
 
 function getReporters() {
   var reps = ['progress'];
-  if (coverage) {
+  if (inCIMode) {
     reps.push('coverage');
   }
   return reps;
