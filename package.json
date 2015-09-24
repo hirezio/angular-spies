@@ -1,6 +1,6 @@
 {
   "name": "angular-spies",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Spies For Your Angular Tests TDD",
   "main": "index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "babel-core": "5.8.25",
     "babel-loader": "5.3.2",
     "commitizen": "1.0.4",
-    "cz-conventional-changelog": "1.1.0",
+    "cz-conventional-changelog": "1.1.1",
     "istanbul": "0.3.20",
     "jasmine-core": "^2.3.4",
     "jasmine-given": "^2.6.3",
