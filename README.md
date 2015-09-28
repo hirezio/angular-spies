@@ -1,7 +1,7 @@
 # angular-spies
 Status: 
-[![npm version](https://img.shields.io/npm/v/angular-spies.svg?style=flat-square)](https://www.npmjs.org/package/angular-spies)
 [![Build Status](https://travis-ci.org/hirezio/angular-spies.svg?style=flat-square)](https://travis-ci.org/hirezio/angular-spies)
+[![npm version](https://img.shields.io/npm/v/angular-spies.svg?style=flat-square)](https://www.npmjs.org/package/angular-spies)
 [![npm downloads](https://img.shields.io/npm/dm/angular-spies.svg?style=flat-square)](http://npm-stat.com/charts.html?package=angular-spies&from=2015-09-01)
 
 Super easy spy setup and injection library.
