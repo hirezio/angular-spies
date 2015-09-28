@@ -74,14 +74,14 @@ function createSyncMethodsOnSpy(spyCreatorInstance, spyService, serviceName){
 }
 
 function createAsyncSyncMethodsOnSpy(spyCreatorInstance, spyService, serviceName, $q){
-  var asyncMethodNames,
-    deferreds;
+  var asyncMethodNames;
 
   asyncMethodNames = spyCreatorInstance.asyncMethodNames;
 
   if (asyncMethodNames && angular.isArray(asyncMethodNames)) {
 
-    deferreds = {};
+    // in case this spy extends from a parent, keep the deferreds
+    spyService.__deferreds = spyService.__deferreds || {};
 
     spyService.setDeferred = setDeferred;
     spyService.getDeferred = getDeferred;
@@ -92,12 +92,12 @@ function createAsyncSyncMethodsOnSpy(spyCreatorInstance, spyService, serviceName
     })
 
     function setDeferred(methodName) {
-      deferreds[methodName] = $q.defer();
-      spyService[methodName].and.returnValue(deferreds[methodName].promise);
+      spyService.__deferreds[methodName] = $q.defer();
+      spyService[methodName].and.returnValue(spyService.__deferreds[methodName].promise);
     }
 
     function getDeferred(methodName) {
-      return deferreds[methodName];
+      return spyService.__deferreds[methodName];
     }
   }
 }

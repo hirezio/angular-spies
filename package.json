@@ -1,10 +1,13 @@
 {
   "name": "angular-spies",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Spies For Your Angular Tests TDD",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
+    "build:local:unminified": "set MINIFY=false&& webpack",
+    "build:local:minified": "set MINIFY=true&& webpack -p",
+    "build:local": "npm run build:local:unminified && npm run build:local:minified",
     "build:unminified": "webpack",
     "build:minified": "MINIFY=true webpack -p",
     "build": "npm run build:unminified && npm run build:minified",

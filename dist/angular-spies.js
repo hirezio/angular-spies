@@ -126,22 +126,23 @@
 	}
 
 	function createAsyncSyncMethodsOnSpy(spyCreatorInstance, spyService, serviceName, $q) {
-	  var asyncMethodNames, deferreds;
+	  var asyncMethodNames;
 
 	  asyncMethodNames = spyCreatorInstance.asyncMethodNames;
 
 	  if (asyncMethodNames && angular.isArray(asyncMethodNames)) {
 	    (function () {
 	      var setDeferred = function setDeferred(methodName) {
-	        deferreds[methodName] = $q.defer();
-	        spyService[methodName].and.returnValue(deferreds[methodName].promise);
+	        spyService.__deferreds[methodName] = $q.defer();
+	        spyService[methodName].and.returnValue(spyService.__deferreds[methodName].promise);
 	      };
 
 	      var getDeferred = function getDeferred(methodName) {
-	        return deferreds[methodName];
+	        return spyService.__deferreds[methodName];
 	      };
 
-	      deferreds = {};
+	      // in case this spy extends from a parent, keep the deferreds
+	      spyService.__deferreds = spyService.__deferreds || {};
 
 	      spyService.setDeferred = setDeferred;
 	      spyService.getDeferred = getDeferred;
@@ -200,6 +201,16 @@
 
 	module.exports = window.injectSpy = injectSpy;
 
+	var initializedSpyModules = [];
+
+	window.beforeEach(function () {
+	  initializedSpyModules = [];
+	});
+
+	window.afterEach(function () {
+	  initializedSpyModules = [];
+	});
+
 	function injectSpy(spyInjections) {
 	  var spyInjectionNames;
 
@@ -221,9 +232,14 @@
 	    var spyName = spyInjections[i];
 
 	    if (!angular.isString(spyName)) {
-	      throw new Error('Spy names must be Strings');
+	      throw new Error('Spy name must be of type String, injection value was: ' + spyName);
 	    }
-	    beforeEach(window.module(spyName + _spySuffix2['default']));
+	    var spyModuleName = spyName + _spySuffix2['default'];
+
+	    if (initializedSpyModules.indexOf(spyModuleName) === -1) {
+	      initializedSpyModules.push(spyModuleName);
+	      beforeEach(window.module(spyModuleName));
+	    }
 	  }
 	}
 

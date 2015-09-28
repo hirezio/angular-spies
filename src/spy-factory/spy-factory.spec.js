@@ -9,7 +9,7 @@ describe('spy-factory', () => {
     serviceName = 'myService';
   });
 
-  describe('an empty spy', () => {
+  describe('spy with no methods', () => {
 
     Given(() => {
       spy = angular.spyOnService(serviceName);
@@ -87,18 +87,55 @@ describe('spy-factory', () => {
       describe('extending a spy', () => {
         var childSpy,
           returnedChildSpy;
+
         Given(() => {
-          spy = angular
-                  .spyOnService('childSpy', [serviceName]);
+          childSpy = angular.spyOnService('childSpy', [serviceName]);
         });
 
         When(injectSpy( (childSpy) => {
           returnedChildSpy = childSpy;
-          returnedChildSpy.doSomething();
         }));
 
         Then(() => {
           expect(returnedChildSpy.doSomething).toHaveBeenCalled();
+        });
+
+        describe('copy also asyncMethods with their deferreds when child spy has asyncMethods too', function () {
+          var promiseResult,
+            fakePromiseResult;
+
+          Given(function(){
+            spy.asyncMethods(['doSomethingAsync']);
+
+            childSpy.asyncMethods('childAsyncMethod');
+
+            fakePromiseResult = 'BOOM!';
+          });
+
+
+          When(injectSpy( (childSpy) => {
+            returnedChildSpy = childSpy;
+            returnedChildSpy
+              .getDeferred('doSomethingAsync')
+              .resolve(fakePromiseResult);
+
+            returnedChildSpy
+              .doSomethingAsync()
+              .then(onSuccess);
+
+            function onSuccess(result){
+              promiseResult = result;
+            }
+          }));
+
+          When(inject( (_$rootScope_) => {
+            $rootScope = _$rootScope_;
+            $rootScope.$apply();
+          }));
+
+          Then(function(){
+            expect(promiseResult).toBe(fakePromiseResult);
+          });
         });
       });
 
