@@ -201,16 +201,6 @@
 
 	module.exports = window.injectSpy = injectSpy;
 
-	var initializedSpyModules = [];
-
-	window.beforeEach(function () {
-	  initializedSpyModules = [];
-	});
-
-	window.afterEach(function () {
-	  initializedSpyModules = [];
-	});
-
 	function injectSpy(spyInjections) {
 	  var spyInjectionNames;
 
@@ -235,11 +225,7 @@
 	      throw new Error('Spy name must be of type String, injection value was: ' + spyName);
 	    }
 	    var spyModuleName = spyName + _spySuffix2['default'];
-
-	    if (initializedSpyModules.indexOf(spyModuleName) === -1) {
-	      initializedSpyModules.push(spyModuleName);
-	      beforeEach(window.module(spyModuleName));
-	    }
+	    beforeEach(window.module(spyModuleName));
 	  }
 	}
 

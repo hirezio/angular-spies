@@ -1,6 +1,6 @@
 {
   "name": "angular-spies",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Spies For Your Angular Tests TDD",
   "main": "index.js",
   "scripts": {

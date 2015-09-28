@@ -96,19 +96,6 @@ describe('spy-loader', () => {
       expect(returnedValue).toBe('CALLED');
     } );
 
-    describe('calling injectSoy twice should not setup another module', function () {
-      When(() => {
-        beforeEachHolder = window.beforeEach;
-        window.beforeEach = jasmine.createSpy('beforeEach');
-        window.module.calls.reset();
-        returnedValue = injectSpy(spyInjections);
-        window.beforeEach = beforeEachHolder;
-      } );
-
-      Then(() => {
-        expect(window.module).not.toHaveBeenCalledWith(spyName + spySuffix);
-      });
-    });
   });
 
 
