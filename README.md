@@ -96,7 +96,7 @@ it ('should get products async', function(){
 		returnedProducts = products;
 	});
 	
-	$rootScope.flush();
+	$rootScope.$apply();
 	
 	expect(productServiceSpy.getProducts).toHaveBeenCalled();
 	
